@@ -4,7 +4,7 @@ about: Describe this issue template's purpose here.
 title: "[BUG] <!-- your-title-here -->"
 labels: bug, documentation, good first issue
 assignees: mrolli
-projects: mrolli/projects/1
+projects: mrolli/1
 
 ---
 
