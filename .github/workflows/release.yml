@@ -8,12 +8,17 @@ jobs:
   notify:
     name: Notify new release
     runs-on: ubuntu-latest
+    if: github.event.release.name != ''
 
     steps:
-      - name: Send notification to Teams
-        run: |
-          if [ "${{ github.event.release.name }}" != '' ]; then
-            curl -X POST "${{ secrets.TEAMS_SYS_WEBHOOK_TEST_URI }}" \
-            --data '{"@context":"https://schema.org/extensions","@type":"MessageCard","themeColor":"ff6e00","title":"Release ${{ github.event.release.name }} on repository ${{ github.repository }} has just been published!","text":"${{ github.event.release.body }}"}'
-          fi
-        shell: bash
+      - uses: actions/checkout@v4
+      # this is the new step using the ms-teams-notification action
+      - name: Notify dedicated teams channel
+        uses: jdcargile/ms-teams-notification@v1.4
+        with:
+          github-token: ${{ github.token }} # this will use the runner's token.
+          ms-teams-webhook-uri: ${{ secrets.TEAMS_SYS_WEBHOOK_TEST_UR }}
+          notification-summary: "Release ${{ github.event.release.name }} on repository ${{ github.repository }} has just been published!"
+          notification-color: ff6e00
+          timezone: America/Denver
+          verbose-logging: true
