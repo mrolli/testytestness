@@ -11,14 +11,15 @@ jobs:
     if: github.event.release.name != ''
 
     steps:
-      - uses: actions/checkout@v4
-      # this is the new step using the ms-teams-notification action
-      - name: Notify dedicated teams channel
-        uses: jdcargile/ms-teams-notification@v1.4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Notifiy dedicated teams channel
+        uses: simbo/msteams-message-card-action@v1.4.3
         with:
-          github-token: ${{ github.token }} # this will use the runner's token.
-          ms-teams-webhook-uri: ${{ secrets.TEAMS_SYS_WEBHOOK_TEST_URI }}
-          notification-summary: "Release ${{ github.event.release.name }} on repository ${{ github.repository }} has just been published!"
-          notification-color: ff6e00
-          timezone: America/Denver
-          verbose-logging: true
+          webhook-url: ${{ secrets.TEAMS_SYS_WEBHOOK_TEST_URI }}
+          title: "New Release for ${{ github.repository }}"
+          message: "Release ${{ github.event.release.name }} on repository ${{ github.repository }} has just been published!"
+          color: "ff6e00"
+          buttons: |
+            Open release notes in GitHub https://github.com/${{ github.repository }}/releases/tag/${{ github.event.release.name }}
