@@ -17,7 +17,7 @@ jobs:
       - name: Notifiy dedicated teams channel
         uses: simbo/msteams-message-card-action@v1.4.3
         with:
-          webhook-url: ${{ secrets.TEAMS_SYS_WEBHOOK_TEST_URI }}
+          webhook: ${{ secrets.TEAMS_SYS_WEBHOOK_TEST_URI }}
           title: "New Release for ${{ github.repository }}"
           message: "Release ${{ github.event.release.name }} on repository ${{ github.repository }} has just been published!"
           color: "ff6e00"
