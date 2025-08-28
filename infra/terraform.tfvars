@@ -6,7 +6,7 @@ location = "westeurope"
 repository_full_name = "mrolli/testytestness"
 
 app_config = {
-  app_location = "/docs"
+  output_location = "site"
 }
 
 tags = {

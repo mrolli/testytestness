@@ -19,6 +19,11 @@ jobs:
         with:
           submodules: true
           lfs: false
+
+      - run: pip install mkdocs-material
+
+      - run: mkdocs build
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
